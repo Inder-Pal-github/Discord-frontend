@@ -10,7 +10,7 @@ apiClient.interceptors.request.use(
   (config) => {
     const userDetails = localStorage.getItem("user");
     if (userDetails) {
-      const token = JSON.parse(userDetails).token;
+      const token = JSON.parse(userDetails).userDetails.token;
       config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
@@ -41,6 +41,18 @@ export const register = async (data) => {
   }
 };
 // secure routes
+
+export const sendFriendInvitation = async (data)=>{
+  try {
+    return await apiClient.post("/friend-invitation/invite",data);
+  } catch (errorException) {
+    checkResponseCode(errorException);
+    return {
+      error:true,
+      errorException
+    }
+  }
+}
 
 export const checkResponseCode = (exception) => {
   const responseCode = exception?.response?.status;

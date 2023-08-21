@@ -4,8 +4,13 @@ import thunk from "redux-thunk";
 
 import authReducer from "../store/reducers/authReducer";
 import alertReducer from "../store/reducers/alertReducer";
+import friendsReducer from "../store/reducers/friendsReducer";
 
-const rootReducer = combineReducers({ auth: authReducer, alert: alertReducer });
+const rootReducer = combineReducers({
+  auth: authReducer,
+  alert: alertReducer,
+  friends: friendsReducer,
+});
 
 const store = legacy_createStore(
   rootReducer,
