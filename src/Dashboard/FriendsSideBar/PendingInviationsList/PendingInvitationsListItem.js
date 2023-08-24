@@ -1,24 +1,32 @@
 import { Box, Tooltip, Typography } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "../../../shared/components/Avatar";
 import InvitationDecisionButtons from "./InvitationDecisionButtons";
+import { connect } from "react-redux";
+import { getActions } from "../../../store/actions/friendsAction";
 
 const PendingInvitationsListItem = ({
   id,
   username,
   mail,
-  acceptFriendInviation = () => {},
-  rejectFriendInviation = () => {},
+  acceptFriendInvitation,
+  rejectFriendInvitation,
 }) => {
-  const [buttonsDiabled, setButtonsDisabled] = useState(false);
+  const [buttonsDisabled, setButtonsDisabled] = useState(false);
   const handleAcceptInviation = () => {
-    acceptFriendInviation({ id });
-    setButtonsDisabled(true);
+    console.log("clicked accept handler");
+    acceptFriendInvitation({ id });
+    // setButtonsDisabled(true);
   };
   const handleRejectInviation = () => {
-    rejectFriendInviation({ id });
-    setButtonsDisabled(true);
+    console.log("clicked reject handler");
+    rejectFriendInvitation({ id });
+    // setButtonsDisabled(true);
   };
+  useEffect(() => {
+    // Reset buttonsDisabled when receiving new props
+    setButtonsDisabled(false);
+  }, [id]);
   return (
     <Tooltip title={mail}>
       <div
@@ -47,15 +55,20 @@ const PendingInvitationsListItem = ({
           >
             {username}
           </Typography>
-        <InvitationDecisionButtons
-          disabled={buttonsDiabled}
-          acceptInvitationHandler={handleAcceptInviation}
-          rejectInvitationHandler={handleRejectInviation}
-        />
+          <InvitationDecisionButtons
+            disabled={buttonsDisabled}
+            acceptInvitationHandler={handleAcceptInviation}
+            rejectInvitationHandler={handleRejectInviation}
+          />
         </Box>
       </div>
     </Tooltip>
   );
 };
 
-export default PendingInvitationsListItem;
+const mapActionsToProps = (dispatch) => {
+  return {
+    ...getActions(dispatch),
+  };
+};
+export default connect(null, mapActionsToProps)(PendingInvitationsListItem);

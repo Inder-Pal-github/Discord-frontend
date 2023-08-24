@@ -31,7 +31,6 @@ const PendingInvitationsList = ({pendingFriendsInvitations}) => {
 }
 
 const mapStoreStateToProps = ({friends})=>{
-  console.log(friends);
   return {
     ...friends
   }
