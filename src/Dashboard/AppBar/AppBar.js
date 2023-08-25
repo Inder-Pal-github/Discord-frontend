@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "@mui/system";
 import DropdownMenu from "./DropdownMenu";
-
+import ChosenOptionLabel from "./ChosenOptionLabel";
 const MainContainer = styled("div")({
   position: "absolute",
   right: "0",
@@ -12,14 +12,17 @@ const MainContainer = styled("div")({
   width: "calc(100% - 326px)",
   display: "flex",
   alignItems: "center",
-  justifyContent:"space-between",
-  padding:"0 15px"
+  justifyContent: "space-between",
+  padding: "0 15px",
 });
 
 const AppBar = () => {
-  return <MainContainer>
-    <DropdownMenu/>
-  </MainContainer>;
+  return (
+    <MainContainer>
+      <ChosenOptionLabel />
+      <DropdownMenu />
+    </MainContainer>
+  );
 };
 
 export default AppBar;
