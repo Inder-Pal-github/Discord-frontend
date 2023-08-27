@@ -3,6 +3,7 @@ import { styled } from "@mui/material";
 import MessagesHeader from "./MessagesHeader";
 import { connect } from "react-redux";
 import DUMMY_MESSAGES from "./DUMMY_MESSAGES";
+import DateSeparator from "./DateSeparator"
 import Message from "./message";
 
 const MainContainer = styled("div")({
@@ -14,19 +15,49 @@ const MainContainer = styled("div")({
 });
 
 const Messages = ({ chosenChatDetails, messages }) => {
+  console.log(messages);
+  const convertDateToHumanReadable = (date, format) => {
+    const map = {
+      mm: date.getMonth() + 1,
+      dd: date.getDate(),
+      yy: date.getFullYear().toString().slice(-2),
+      yyyy: date.getFullYear(),
+    };
+    return format.replace(/mm|dd|yy|yyyy/gi, (matched) => map[matched]);
+  };
   return (
     <MainContainer>
       <MessagesHeader name={chosenChatDetails?.name} />
-      {DUMMY_MESSAGES?.map((message, index) => {
+      {messages?.map((message, index) => {
+        const sameAuthor =
+          index > 0 && messages[index].author === messages[index - 1].author;
+        const sameDay =
+          index > 0 &&
+          convertDateToHumanReadable(new Date(message.date), "dd/mm/yy") ===
+            convertDateToHumanReadable(
+              new Date(messages[index - 1].date),
+              "dd/mm/yy"
+            );
+
         return (
-          <Message
-            key={index}
-            content={message?.content}
-            username={message?.author?.username}
-            sameAuthor={message?.sameAuthor}
-            date={message?.date}
-            sameDay={message?.sameDay}
-          />
+          <div key={message._id} style={{width:"97%"}} >
+            {
+              (!sameDay || index===0) && (
+                <DateSeparator date={convertDateToHumanReadable(new Date(message.date),"dd/mm/yy")} />
+              )
+            }
+            <Message
+              key={index}
+              content={message?.content}
+              username={chosenChatDetails?.name}
+              sameAuthor={sameAuthor}
+              date={convertDateToHumanReadable(
+                new Date(message.date),
+                "dd/mm/yy"
+              )}
+              sameDay={sameDay}
+            />
+          </div>
         );
       })}
     </MainContainer>

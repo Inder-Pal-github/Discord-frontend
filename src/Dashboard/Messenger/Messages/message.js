@@ -30,6 +30,7 @@ const SameAuthorMessageContent = styled("div")({
 });
 
 const message = ({ content, username, date, sameDay, sameAuthor }) => {
+  console.log(sameAuthor,sameDay);
   if (sameAuthor && sameDay) {
     return (
       <SameAuthorMessageContent>
@@ -47,7 +48,7 @@ const message = ({ content, username, date, sameDay, sameAuthor }) => {
           {username}{" "}
           <span style={{ fontSize: "12px", color: "#72767d" }}>{date}</span>
         </Typography>
-        <MessageContainer>{content}</MessageContainer>
+        <MessageContent>{content} </MessageContent>
       </MessageContainer>
     </MainContainer>
   );

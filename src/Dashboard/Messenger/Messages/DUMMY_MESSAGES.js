@@ -11,9 +11,9 @@ const DUMMY_MESSAGES = [
     id: 2,
     content: "hello once again",
     sameAuthor: true,
-    author: { username: "Marek" },
+    author: { username: "Jonh" },
     date: "22/01/2022",
-    sameDay: false,
+    sameDay: true,
   },
   {
     id: 3,
