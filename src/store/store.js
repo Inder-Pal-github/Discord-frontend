@@ -6,12 +6,14 @@ import authReducer from "../store/reducers/authReducer";
 import alertReducer from "../store/reducers/alertReducer";
 import friendsReducer from "../store/reducers/friendsReducer";
 import chatReducer from "../store/reducers/chatReducer";
+import roomReducer from "../store/reducers/roomReducer";
 
 const rootReducer = combineReducers({
   auth: authReducer,
   alert: alertReducer,
   friends: friendsReducer,
   chat: chatReducer,
+  room: roomReducer,
 });
 
 const store = legacy_createStore(

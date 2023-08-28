@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "@mui/material";
 import MessagesHeader from "./MessagesHeader";
 import { connect } from "react-redux";
-import DUMMY_MESSAGES from "./DUMMY_MESSAGES";
+// import DUMMY_MESSAGES from "./DUMMY_MESSAGES";
 import DateSeparator from "./DateSeparator"
 import Message from "./message";
 
