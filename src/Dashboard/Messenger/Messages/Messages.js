@@ -29,6 +29,7 @@ const Messages = ({ chosenChatDetails, messages }) => {
     <MainContainer>
       <MessagesHeader name={chosenChatDetails?.name} />
       {messages?.map((message, index) => {
+        console.log(messages);
         const sameAuthor =
           index > 0 && messages[index].author === messages[index - 1].author;
         const sameDay =
