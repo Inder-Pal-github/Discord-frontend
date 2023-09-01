@@ -8,6 +8,15 @@ export const roomActions = {
   SET_SCREEN_SHARE_STREAM: "ROOM.SET_SCREEN_SHARE_STREAM",
 };
 
+export const getActions = (dispatch) => {
+  return {
+    setAudioOnly: (onlyAudio)=>{
+      dispatch(setAudioOnly(onlyAudio));
+    }
+  };
+};
+
+
 export const setOpenRoom = (
   isUserRoomCreator = false,
   isUserInRoom = false
@@ -26,10 +35,23 @@ export const setRoomDetails = (roomDetails) => {
   };
 };
 
-
-export const setActiveRooms = (activeRooms)=>{
+export const setActiveRooms = (activeRooms) => {
   return {
-    type:roomActions.SET_ACTIVE_ROOMS,
-    activeRooms
+    type: roomActions.SET_ACTIVE_ROOMS,
+    activeRooms,
+  };
+};
+
+export const setLocalStream = (stream) => {
+  return {
+    type: roomActions.SET_LOCAL_STREAM,
+    localStream:stream,
+  };
+};
+
+export const setAudioOnly = (audioOnly)=>{
+  return {
+    type:roomActions.SET_AUDIO_ONLY,
+    audioOnly
   }
 }
