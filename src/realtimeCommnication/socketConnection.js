@@ -5,8 +5,8 @@ import {
   setOnlineUsers,
 } from "../store/actions/friendsAction";
 import { store } from "../store/store";
-import {updateDirectChatHistoryIfActive} from "../shared/utils/chat"
-import { newRoomCreated,updateActiveRooms } from "./roomHandler";
+import { updateDirectChatHistoryIfActive } from "../shared/utils/chat";
+import { newRoomCreated, updateActiveRooms } from "./roomHandler";
 
 let socket = null;
 
@@ -40,13 +40,18 @@ export const connectWithSocketServer = ({ userDetails }) => {
     updateDirectChatHistoryIfActive(data);
   });
 
-  socket.on("room-create",(data)=>{
+  socket.on("room-create", (data) => {
     newRoomCreated(data);
-  })
+  });
 
-  socket.on("active-rooms",(data)=>{
+  socket.on("active-rooms", (data) => {
     updateActiveRooms(data);
-  })
+  });
+
+  socket.on("conn-prepare", (data) => {
+    console.log("prepare for connection");
+    console.log(data);
+  });
 };
 
 export const sendDirectMessage = (data) => {
@@ -57,15 +62,14 @@ export const getDirectChatHistory = (data) => {
   socket.emit("direct-chat-history", data);
 };
 
-
-export const createNewRoom = ()=>{
+export const createNewRoom = () => {
   socket.emit("room-create");
-}
+};
 
-export const joinRoom = (data)=>{
-  socket.emit("room-join",data);
-}
+export const joinRoom = (data) => {
+  socket.emit("room-join", data);
+};
 
-export const leaveRoom = (data)=>{
-  socket.emit("room-leave",data);
-}
+export const leaveRoom = (data) => {
+  socket.emit("room-leave", data);
+};
