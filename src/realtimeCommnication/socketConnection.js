@@ -7,6 +7,7 @@ import {
 import { store } from "../store/store";
 import { updateDirectChatHistoryIfActive } from "../shared/utils/chat";
 import { newRoomCreated, updateActiveRooms } from "./roomHandler";
+import * as webRTCHandler from "./webRTCHandler";
 
 let socket = null;
 
@@ -49,9 +50,15 @@ export const connectWithSocketServer = ({ userDetails }) => {
   });
 
   socket.on("conn-prepare", (data) => {
-    console.log("prepare for connection");
-    console.log(data);
+    const {connUserSocketId} = data;
+    webRTCHandler.prepareNewPeerConnection(data,false);
+    socket.emit("conn-init",{connUserSocketId})
   });
+
+  socket.on("conn-init",(data)=>{
+    const {connUserSocketId} = data;
+    webRTCHandler.prepareNewPeerConnection(connUserSocketId,true);
+  })
 };
 
 export const sendDirectMessage = (data) => {
